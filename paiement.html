@@ -582,7 +582,7 @@
                         <div class="payment-info">Cliquez sur ce bouton pour finaliser votre commande</div>
                     </div>
 
-                    <a href="annulation.html" class="back-button">
+                    <a href="#" class="back-button" id="cancel-button">
                         <i class="fas fa-times-circle" style="font-size: 1.2rem;"></i>
                         Annuler la commande
                     </a>
@@ -677,6 +677,14 @@
                 // Rediriger vers la page de remerciement
                 window.location.href = 'merci.html';
             });
+
+            // Ajout du gestionnaire pour le bouton d'annulation
+            document.getElementById('cancel-button').addEventListener('click', function(e) {
+                e.preventDefault(); // Empêche le comportement par défaut du lien
+                window.location.href = 'annulation.html'; // Redirection vers la page d'annulation
+            });
+
+            // Le reste du script existant...
         </script>
     </body>
 </html>
