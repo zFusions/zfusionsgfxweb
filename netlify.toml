@@ -1,0 +1,57 @@
+# Configuration pour Netlify
+[build]
+  # Répertoire contenant les fichiers à publier (si différent de la racine)
+  publish = "/"
+
+# Paramètres pour les pages 404
+[build.processing]
+  skip_processing = false
+
+# Redirection de la page d'accueil vers index.html
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+# Configuration des redirections
+[[redirects]]
+  # Redirection par défaut pour les autres chemins
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  force = false
+
+# Configuration spécifique pour les pages  
+[[redirects]]
+  from = "/merci"
+  to = "/index.html" 
+  status = 200
+
+[[redirects]]
+  from = "/annulation"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/exemples"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/paiement"
+  to = "/paiement.html"
+  status = 200
+  
+[[redirects]]
+  from = "/page1"
+  to = "/index.html"
+  status = 200
+
+# Headers pour améliorer la sécurité et les performances
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    # Paramètres de cache - ajustez selon vos besoins
+    Cache-Control = "public, max-age=3600"

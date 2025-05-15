@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Merci pour votre achat - Fusions GFX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .container {
+            padding: 20px;
+            max-width: 600px;
+        }
+        
+        .check-icon {
+            font-size: 80px;
+            margin-bottom: 30px;
+            color: #00a2ff;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .discord-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #5865F2, #7289DA);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 18px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 20px;
+        }
+        
+        .discord-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(88, 101, 242, 0.3);
+        }
+        
+        .discord-icon {
+            margin-right: 10px;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #00a2ff, 0 0 20px #00a2ff, 0 0 30px #00a2ff;
+            }
+            to {
+                text-shadow: 0 0 20px #00a2ff, 0 0 30px #00a2ff, 0 0 40px #00a2ff, 0 0 50px #00a2ff, 0 0 60px #00a2ff;
+            }
+        }
+
+        /* Animation supplémentaire pour le check */
+        .check-circle {
+            position: relative;
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+        }
+
+        .check-circle .circle {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 4px solid #00a2ff;
+            border-radius: 50%;
+            box-sizing: border-box;
+            opacity: 0;
+            animation: circle-appear 0.8s forwards;
+        }
+
+        .check-circle .check {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #00a2ff;
+            font-size: 60px;
+            opacity: 0;
+            animation: check-appear 0.4s 0.6s forwards;
+        }
+
+        @keyframes circle-appear {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes check-appear {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 0;
+            }
+            70% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="page-protection.js"></script>
+    <script>
+        // Vérifier si le paiement a été confirmé
+        const paymentConfirmed = localStorage.getItem('paymentConfirmed');
+        
+        if (!paymentConfirmed) {
+            // Rediriger vers la page d'accueil si le paiement n'a pas été confirmé
+            window.location.href = '../index.html';
+        }
+    </script>
+    <div class="container">
+        <div class="check-circle">
+            <div class="circle"></div>
+            <div class="check"><i class="fas fa-check"></i></div>
+        </div>
+        <h1>Merci pour votre achat !</h1>
+        <p>Nous avons bien reçu votre commande et allons commencer à travailler dessus dès que possible.</p>
+        <p><strong>Merci de rejoindre notre discord et de creer un ticket et nous envoyer la preuve du payement</strong></p>
+        <a href="https://discord.gg/SmsPv4suaB" class="discord-button">
+            <i class="discord-icon fab fa-discord"></i>Rejoindre notre Discord
+        </a>
+    </div>
+
+
+</body>
+</html>

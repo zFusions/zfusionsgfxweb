@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Créations - Fusions GFX</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+    <style>
+        .glow-title {
+            text-shadow: 0 0 10px #7289da;
+            color: #72b0da !important;
+            font-weight: 700 !important;
+            letter-spacing: normal;
+        }
+        
+        .gallery {
+            padding: 4rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .gallery h1 {
+            text-align: center;
+            margin: 0 0 2rem 0;
+            padding-top: 20px;
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            width: 100%;
+        }
+
+        .gallery-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 2rem;
+            padding: 1rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .gallery-item {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 0 15px #4a6bff, 0 0 25px #4a6bff;
+            transition: all 0.3s ease;
+            background: var(--secondary-color);
+            padding: 5px;
+            border: 2px solid #4a6bff;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        
+        /* Style spécifique pour les bannières (format 3000x1000) */
+        .gallery-item[data-category="banner"] {
+            flex: 0 0 100%;
+            max-width: 1000px;
+            margin: 0 auto 0 auto;
+            padding: 0;
+            background: none;
+            line-height: 0;
+            font-size: 0;
+            display: block;
+            overflow: hidden;
+        }
+        
+        .gallery-item[data-category="banner"] img {
+            width: 100%;
+            height: auto;
+            max-height: 500px;
+            object-fit: contain;
+            display: block;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+        
+        /* Style spécifique pour les logos */
+        .gallery-item[data-category="logo"] {
+            flex: 0 0 calc(33.333% - 1.5rem);
+            max-width: calc(33.333% - 1.5rem);
+            aspect-ratio: 1/1; /* Format carré pour les logos */
+        }
+        
+        .gallery-item.empty-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px dashed #4a6bff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 1.5rem;
+            min-height: 0; /* Empêche l'expansion inutile */
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+            background: rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Supprime le fond gris pour les bannières */
+        .gallery-item[data-category="banner"] img {
+            background: none;
+        }
+
+        @media (max-width: 1024px) {
+            .gallery-item[data-category="logo"] {
+                flex: 0 0 calc(50% - 1rem); /* 2 logos par ligne sur tablettes */
+                max-width: calc(50% - 1rem);
+            }
+            
+            .gallery-item[data-category="banner"] {
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .gallery-item[data-category="banner"] {
+                max-width: 90%;
+            }
+            
+            .gallery-item[data-category="banner"] img {
+                max-height: 400px;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .gallery-item[data-category="logo"] {
+                flex: 0 0 calc(50% - 1rem);
+                max-width: calc(50% - 1rem);
+            }
+            
+            .gallery-item[data-category="banner"] {
+                max-width: 100%;
+            }
+            
+            .gallery-item[data-category="banner"] img {
+                max-height:400px;
+            }
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px #4a6bff, 0 0 40px #4a6bff;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .gallery-item p {
+            padding: 1rem;
+            text-align: center;
+            color: var(--text-color);
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin: 2rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(114, 137, 218, 0.4);
+        }
+
+        /* Style des boutons de catégorie */
+        .category-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0 30px;
+        }
+
+        .category-btn {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #4a6bff, #6a5acd);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .category-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        }
+
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #6a5acd, #4a6bff);
+            box-shadow: 0 0 15px rgba(74, 107, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <script src="page-protection.js"></script>
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="logo-text">Fusions GFX</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html#accueil">Accueil</a></li>
+                <li><a href="index.html#services">Services</a></li>
+                <li><a href="index.html#tarifs">Tarifs</a></li>
+                <li><a href="index.html#commande">Commander</a></li>
+                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="#" class="highlighted">Exemples</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="gallery">
+        <h1 class="glow-title">Portfolio</h1>
+        <div class="category-buttons" style="display: flex; justify-content: center; gap: 30px; width: 100%;">
+            <button class="category-btn" data-category="banner">Bannières</button>
+            <button class="category-btn" data-category="logo">Logos</button>
+        </div>
+        <div class="gallery-banners-grid">
+            <div class="gallery-item" data-category="banner">
+                <img src="images/ebanner/image.png" alt="Bannière 1" class="gallery-image">
+            </div>
+            <div class="gallery-item" data-category="banner">
+                <img src="../../public/images/ebanner/image2.png" alt="Bannière 2" class="gallery-image">
+            </div>
+            <div class="gallery-item" data-category="banner">
+                <img src="../../public/images/ebanner/image3.png" alt="Bannière 3" class="gallery-image">
+            </div>
+            <div class="gallery-item" data-category="banner">
+                <img src="../../public/images/ebanner/image4.png" alt="Bannière 4" class="gallery-image">
+            </div>
+            <div class="gallery-item" data-category="banner">
+                <img src="../../public/images/ebanner/image5.png" alt="Bannière 5" class="gallery-image">
+            </div>
+            <div class="gallery-item" data-category="banner">
+                <img src="../../public/images/ebanner/image6.png" alt="Bannière 6" class="gallery-image">
+            </div>
+            <div class="gallery-item" data-category="banner">
+                <img src="../../public/images/ebanner/image7.png" alt="Bannière 7" class="gallery-image">
+            </div>
+            <div class="gallery-item" data-category="banner">
+                <img src="../../public/images/ebanner/image8.png" alt="Bannière 8" class="gallery-image">
+            </div>
+            <div class="gallery-item" data-category="banner">
+                <img src="../../public/images/ebanner/image9.png" alt="Bannière 9" class="gallery-image">
+            </div>
+            <div class="gallery-item" data-category="banner">
+                <img src="../../public/images/ebanner/image10.png" alt="Bannière 10" class="gallery-image">
+            </div>
+            <div class="gallery-item empty-item" data-category="banner"></div>
+            <div class="gallery-item empty-item" data-category="banner"></div>
+            <div class="gallery-item empty-item" data-category="banner"></div>
+            
+            </div>  
+        </div>
+        <!-- Logos -->
+        <div class="gallery-banners-grid logos-section" style="margin-top: 2rem;">
+            <div class="gallery-item" data-category="logo">
+                <img src="../../public/images/elogos/image.png" alt="Logo 1" class="gallery-image">
+            </div>
+            <div class="gallery-item" data-category="logo">
+                <img src="../../public/images/elogos/image2.png" alt="Logo 2" class="gallery-image">
+            </div>
+            <div class="gallery-item" data-category="logo">
+                <img src="../../public/images/elogos/image3.png" alt="Logo 3" class="gallery-image">
+            </div>
+            <div class="gallery-item" data-category="logo">
+                <img src="../../public/images/elogos/image4.png" alt="Logo 4" class="gallery-image">
+            </div>
+            <div class="gallery-item" data-category="logo">
+                <img src="../../public/images/elogos/image5.png" alt="Logo 5" class="gallery-image">
+            </div>
+            <div class="gallery-item empty-item" data-category="logo"></div>
+            <div class="gallery-item empty-item" data-category="logo"></div>
+            <div class="gallery-item empty-item" data-category="logo"></div>
+        </div>
+        <a href="index.html" class="back-btn">
+            <i class="fas fa-arrow-left"></i> Retour à l'accueil
+        </a>
+    </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const buttons = document.querySelectorAll('.category-btn');
+        const items = document.querySelectorAll('.gallery-item');
+        
+        // Au clic sur un bouton
+        buttons.forEach(button => {
+            button.addEventListener('click', function() {
+                const category = this.getAttribute('data-category');
+                
+                // Mise à jour des boutons actifs
+                buttons.forEach(btn => btn.classList.remove('active'));
+                this.classList.add('active');
+                
+                // Filtrage des éléments
+                items.forEach(item => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Afficher toutes les bannières par défaut
+        document.querySelector('[data-category="banner"]').click();
+    });
+    </script>
+</body>
+</html>

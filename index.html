@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta name="csrf-token" content="{{ csrfToken }}">
+    <meta name="current-step" content="1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fusions GFX</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <span class="logo-text">Fusions'Design</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#accueil">Accueil</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#tarifs">Tarifs</a></li>
+                <li><a href="#commande">Commander</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" class="highlighted">Exemples</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="accueil" class="hero">
+        <div class="banner-preview">
+            <picture>
+                <source media="(max-width: 768px)" srcset="images/banner-mobile.png">
+                <img src="images/banner-desktop.png" alt="Votre bannière" id="bannerImage">
+            </picture>
+        </div>
+        <div class="hero-content">
+            <h1>Fusions's Desings</h1>
+            <h2 class="pricing-title">Création graphique pour embelir votre identité numérique.</h2>
+            <a href="#commande" class="cta-button">Commander maintenant</a>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <h2>Nos Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-paint-brush"></i>
+                <h3>Design Unique</h3>
+                <p>Création de bannières personnalisées selon vos préférences</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-clock"></i>
+                <h3>Livraison Rapide</h3>
+                <p>Création et livraison en 24-48 heures</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-edit"></i>
+                <h3>Modifications Incluses</h3>
+                <p>Révisions gratuites incluses dans chaque commande</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="tarifs" class="pricing">
+        <h2>Nos Tarifs</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Bannière</h3>
+                <div class="price">2€</div>
+                <ul>
+                    <li>Une bannière personnalisée</li>
+                    <li>Format PNG</li>
+                    <li>Livraison en 24h</li>
+                    <li>Révision illimité</li>
+                </ul>
+            </div>
+            <div class="pricing-card featured">
+                <h3>Logo</h3>
+                <div class="price">1,50€</div>
+                <ul>
+                    <li>Un logo personnalisé</li>
+                    <li>Format PNG</li>
+                    <li>Livraison en 24h</li>
+                    <li>Révision illimité</li>
+                </ul>
+            </div>
+            <div class="pricing-card">
+                <h3>Pack</h3>
+                <div class="price">3€</div>
+                <ul>
+                    <li>Bannière + Logo</li>
+                    <li>Format PNG</li>
+                    <li>Livraison en 24h</li>
+                    <li>Révision illimité</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="commande" class="order-form">
+        <div class="form-container">
+            <h2>Commander</h2>
+            
+            <!-- Étape 1 : Services -->
+            <div id="step1" class="form-step active">
+                <div class="service-selection">
+                    <div class="service-option">
+                        <i class="fas fa-image"></i>
+                        <span>Bannière</span>
+                        <div class="quantity-selector">
+                            <button type="button" class="qty-btn" data-action="decrease" data-service="banner">-</button>
+                            <input type="number" id="banner-qty" value="0" min="0" class="qty-input">
+                            <button type="button" class="qty-btn" data-action="increase" data-service="banner">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="service-option">
+                        <i class="fas fa-paint-brush"></i>
+                        <span>Logo</span>
+                        <div class="quantity-selector">
+                            <button type="button" class="qty-btn" data-action="decrease" data-service="logo">-</button>
+                            <input type="number" id="logo-qty" value="0" min="0" class="qty-input">
+                            <button type="button" class="qty-btn" data-action="increase" data-service="logo">+</button>
+                        </div>
+                    </div>
+                    
+                    <div class="service-option recommended">
+                        <div class="recommended-badge">Recommandé</div>
+                        <i class="fas fa-box"></i>
+                        <span>Pack (Bannière + Logo)</span>
+                        <div class="quantity-selector">
+                            <button type="button" class="qty-btn" data-action="decrease" data-service="pack">-</button>
+                            <input type="number" id="pack-qty" value="0" min="0" class="qty-input">
+                            <button type="button" class="qty-btn" data-action="increase" data-service="pack">+</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="discord"><i class="fab fa-discord"></i> Votre Discord</label>
+                    <input type="text" id="discord" placeholder="ex : zfusions" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">
+                        <i class="fas fa-envelope"></i> Votre Email
+                        <span class="email-note">(évitez les emails temporaires pour que je puisse vous contactez)</span>
+                    </label>
+                    <input type="email" id="email" placeholder="votre@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="description"><i class="fas fa-edit"></i> Description</label>
+                    <textarea id="description" placeholder="Décrivez ce que vous souhaitez..." required></textarea>
+                </div>
+                
+                <div class="order-summary">
+                    <div class="summary-item">
+                        <span>Total :</span>
+                        <span id="order-total">0,00€</span>
+                    </div>
+                </div>
+                
+                <!-- Bouton de validation et de paiement -->
+                <button type="button" id="validate-order" class="submit-btn">
+                    <i class="fas fa-shopping-cart"></i> Valider la commande
+                </button>
+                
+                <button type="button" id="paypal-button" class="submit-btn" style="display: none;">
+                    <i class="fab fa-paypal"></i> Payer avec PayPal (Amis et famille)
+                </button>
+                <p class="privacy-note">Aucune de vos données ne sera collectée ou conservée après la commande.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <h2>Contact</h2>
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <p>optix@maifence.com</p>
+            </div>
+            <div class="contact-item">
+                <i class="fab fa-discord"></i>
+                <p>zFusions</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Fusions GFX. Tous droits réservés.</p>
+    </footer>
+
+
+</body>
+</html>

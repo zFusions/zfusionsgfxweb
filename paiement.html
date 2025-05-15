@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paiement Sécurisé - Fusions GFX</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Scripts directement inclus sur la page -->
+    <style>
+        /* Variables */
+        :root {
+            --primary-color: #7289da;
+            --secondary-color: #23272a;
+            --accent-color: #dcddde;
+            --text-color: #ffffff;
+            --background-color: #121212;
+            --border-color: rgba(114, 137, 218, 0.1);
+            --success-color: #43b581;
+            --warning-color: #faa61a;
+            --error-color: #f04747;
+        }
+
+        /* Base */
+        body {
+            margin: 0;
+            padding: 0;
+            background: var(--background-color);
+            color: var(--text-color);
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Container */
+        .paiement-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: var(--secondary-color);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Header */
+        .paiement-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .paiement-header h1 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .paiement-header p {
+            color: var(--text-color);
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+
+        /* Grid */
+        .paiement-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Resume Commande */
+        .resume-commande {
+            background: var(--background-color);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        .resume-commande h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .warning-message {
+            background: var(--background-color);
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+            border: 1px solid var(--border-color);
+        }
+        
+        .warning-message p {
+            color: #f04747;
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        
+        .payment-warning {
+            color: #f04747;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            border-radius: 5px;
+            background: rgba(240, 71, 71, 0.1);
+            text-align: center;
+        }
+
+        /* Produit */
+        .produit {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .produit:last-child {
+            border-bottom: none;
+        }
+
+        .produit span:first-child {
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        .produit span:last-child {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        /* Total */
+        .total {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--primary-color);
+            font-weight: bold;
+            font-size: 1.4rem;
+            color: var(--primary-color);
+        }
+
+        /* Warning Message */
+        .warning-message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            text-align: center;
+            font-size: 0.9rem;
+            color: white;
+            background-color: var(--error-color);
+            border: 2px solid var(--error-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .warning-message::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--error-color);
+            animation: expandBorder 2s infinite;
+        }
+
+        @keyframes expandBorder {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        .warning-message p {
+            margin: 0;
+            font-weight: 500;
+        }
+
+        /* Buttons */
+        .back-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(114, 137, 218, 0.2);
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(114, 137, 218, 0.3);
+            background: #5765b2;
+        }
+
+        /* Steps */
+        .steps-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            padding: 2rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .step-box {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            position: relative;
+        }
+
+        .step-box:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: -50%;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-50%);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            background: var(--secondary-color);
+            color: var(--text-color);
+            border-radius: 50%;
+            line-height: 45px;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            border: 2px solid var(--border-color);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .step-box:hover .step-number {
+            background: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .step-title {
+            font-size: 1rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .step-box:hover .step-title {
+            color: var(--primary-color);
+        }
+
+        /* PayPal */
+        .paypal-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.8rem;
+            border-radius: 16px;
+            background: var(--secondary-color);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 200px;
+            margin: 0 auto;
+            transform: translateY(-10px);
+        }
+
+        .paypal-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            background-color: #2c2f33;
+        }
+
+        .paypal-logo {
+            width: 100%;
+            max-width: 200px;
+            height: 50px;
+        }
+
+        .redirect-icon {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 18px;
+            height: 18px;
+            color: var(--primary-color);
+            font-size: 18px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .paypal-container:hover .redirect-icon {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+
+        .paypal-warning {
+            font-size: 0.8rem;
+            color: var(--warning-color);
+            opacity: 0.9;
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+
+        .paypal-link {
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        /* Contact Banner */
+        .contact-banner {
+            background: linear-gradient(45deg, #7289da, #5368be);
+            padding: 2.5rem 0;
+            margin-top: 3rem;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .contact-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://cdn.pixabay.com/photo/2018/03/22/02/37/background-3249007_1280.png') repeat;
+            opacity: 0.05;
+            mix-blend-mode: overlay;
+        }
+        
+        .contact-banner-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .contact-banner-text {
+            flex: 1;
+        }
+        
+        .contact-banner-text h3 {
+            font-size: 1.8rem;
+            color: white;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-banner-text p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin: 0;
+        }
+        
+        .contact-banner-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .contact-button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            text-decoration: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-button:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .discord-btn:hover {
+            background: #5865F2;
+            border-color: #5865F2;
+        }
+        
+        .email-btn:hover {
+            background: #EA4335;
+            border-color: #EA4335;
+        }
+        
+        .instagram-btn:hover {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            border-color: #C13584;
+        }
+        
+        .remove-proof {
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+        
+        
+        .confirm-button {
+            background: linear-gradient(45deg, var(--success-color), #35a566);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 15px rgba(67, 181, 129, 0.2);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 500px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .confirm-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+        
+        .confirm-button:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .confirm-button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(67, 181, 129, 0.3);
+        }
+
+        .confirm-button:not(:disabled):hover {
+            transform: translateY(-3px);
+            background: #3aa876;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .confirm-button:not(:disabled):active {
+            transform: translateY(-1px);
+        }
+        
+        .payment-info {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            opacity: 0.8;
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .paiement-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .paiement-container {
+                margin: 2rem auto;
+                padding: 1.5rem;
+            }
+
+            .resume-commande {
+                padding: 1.5rem;
+            }
+            
+            .contact-banner-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+            }
+            
+            .contact-banner-text {
+                margin-bottom: 1rem;
+            }
+            
+            .contact-banner-buttons {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script src="page-protection.js"></script>
+
+    <main>
+        <div class="paiement-container">
+            <div class="paiement-header">
+                <h1>Paiement Sécurisé</h1>
+                <p>Veuillez procéder au paiement pour finaliser votre commande</p>
+            </div>
+
+            <div class="paiement-grid">
+                <div class="resume-commande">
+                    <h3>Résumé de la commande</h3>
+                    <div id="resume-services"></div>
+                    <div class="total">
+                        <span>Total</span>
+                        <span id="total-amount">0€</span>
+                    </div>
+                    <div class="payment-warning">
+                        ⚠️ Veuillez payer le prix indiqué dans le résumé de la commande
+                    </div>
+                </div>
+
+                <div class="paiement-form">
+                    <div class="steps-container">
+                        <div class="step-box">
+                            <a href="https://paypal.me/zfusions" target="_blank" class="paypal-link">
+                                <div class="paypal-container">
+                                    <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal" class="paypal-logo" style="width: 120px; height: 120px; object-fit: contain; clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); margin-top: -30px;">
+                                    <span style="position: absolute; bottom: 10px; color: white; font-weight: bold; font-size: 1rem;">Payer avec PayPal</span>
+                                    <i class="fas fa-external-link-alt redirect-icon"></i>
+                                </div>
+                                <div class="paypal-warning">Veuillez payer le prix donnée dans le résumé de la commande</div>
+                            </a>
+                        </div>
+                    </div>
+                                        <div class="payment-confirmation">
+                        <button id="confirm-payment" class="confirm-button">J'ai effectué mon paiement</button>
+                        <div class="payment-info">Cliquez sur ce bouton pour finaliser votre commande</div>
+                    </div>
+
+                    <a href="#" class="back-button">
+                        <i class="fas fa-times-circle" style="font-size: 1.2rem;"></i>
+                        Annuler la commande
+                    </a>
+                </div>
+            </div>
+        </div>
+        <!-- Bannière de contact -->
+        <div class="contact-banner">
+            <div class="contact-banner-content">
+                <div class="contact-banner-text">
+                    <h3>Une question ? Besoin d'aide ?</h3>
+                    <p>N'hésitez pas à me contacter pour tout renseignement supplémentaire</p>
+                </div>
+                <div class="contact-banner-buttons">
+                    <a href="https://discord.gg/mNsEYuNgnU" class="contact-button discord-btn">
+                        <i class="fab fa-discord"></i> Discord
+                    </a>
+                    <a href="mailto:optix@mailfence.com" class="contact-button email-btn">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2024 Fusions GFX. Tous droits réservés.</p>
+        </main>
+        <script>
+            // Récupérer les données de la commande depuis localStorage
+            const total = localStorage.getItem('orderAmount') || '0';
+            const totalNumber = parseFloat(total);
+            const bannerQty = parseInt(localStorage.getItem('bannerQty')) || 0;
+            const logoQty = parseInt(localStorage.getItem('logoQty')) || 0;
+            const packQty = parseInt(localStorage.getItem('packQty')) || 0;
+            
+            // Afficher le résumé des services
+            const resumeServices = document.getElementById('resume-services');
+            let servicesHTML = '';
+            
+            if (bannerQty > 0) {
+                servicesHTML += `
+                <div class="produit">
+                    <span>Bannière × ${bannerQty}</span>
+                    <span>${(bannerQty * 2).toFixed(2).replace('.', ',')}€</span>
+                </div>`;
+            }
+            
+            if (logoQty > 0) {
+                servicesHTML += `
+                <div class="produit">
+                    <span>Logo × ${logoQty}</span>
+                    <span>${(logoQty * 1.5).toFixed(2).replace('.', ',')}€</span>
+                </div>`;
+            }
+            
+            if (packQty > 0) {
+                servicesHTML += `
+                <div class="produit">
+                    <span>Pack × ${packQty}</span>
+                    <span>${(packQty * 3).toFixed(2).replace('.', ',')}€</span>
+                </div>`;
+            }
+            
+            resumeServices.innerHTML = servicesHTML;
+            document.getElementById('total-amount').textContent = total.replace('.', ',') + '€';
+
+            // Gérer le clic sur le bouton de confirmation
+            document.getElementById('confirm-payment').addEventListener('click', function() {
+                // Rediriger vers la page de remerciement
+                window.location.href = 'index.html';
+            });
+            
+
+            
+            // Gérer la confirmation de paiement
+            document.getElementById('confirm-payment').addEventListener('click', function() {
+                // Changer le texte du bouton pour montrer que c'est en cours
+                this.textContent = 'Traitement en cours...';
+                this.disabled = true;
+                
+                // Stocker les informations dans localStorage
+                localStorage.setItem('paymentConfirmed', 'true');
+                localStorage.setItem('paymentDate', new Date().toISOString());
+                const orderServices = [
+                    { type: 'banner', quantity: bannerQty },
+                    { type: 'logo', quantity: logoQty },
+                    { type: 'pack', quantity: packQty }
+                ].filter(item => item.quantity > 0).map(s => `${s.quantity} ${s.type}(s)`).join(', ');
+                localStorage.setItem('orderServices', orderServices);
+                localStorage.setItem('orderTotal', total);
+                
+                // Rediriger vers la page de remerciement
+                window.location.href = 'index.html';
+            });
+        </script>
+    </body>
+</html>
