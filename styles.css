@@ -382,6 +382,11 @@ h1, h2, h3 {
     color: var(--primary-color);
     letter-spacing: -1px;
     text-transform: uppercase;
+    text-shadow: 0 0 10px var(--primary-color),
+                 0 0 20px var(--primary-color),
+                 2px 2px 3px rgba(0, 10, 0, 0.8);  /* Ajout d'une ombre portée noire légère */
+    background: none;
+    -webkit-text-fill-color: var(--primary-color);
 }
 
 .hero p,
