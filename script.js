@@ -67,7 +67,6 @@ class OrderHandler {
         return {
             discord: document.getElementById('discord').value,
             email: document.getElementById('email').value,
-            description: document.getElementById('description').value,
             items: {
                 banner: parseInt(document.getElementById('banner-qty').value) || 0,
                 logo: parseInt(document.getElementById('logo-qty').value) || 0,
@@ -81,7 +80,7 @@ class OrderHandler {
             alert('Sélectionnez au moins un article');
             return false;
         }
-        if (!data.discord || !data.email || !data.description) {
+        if (!data.discord || !data.email) {
             alert('Tous les champs sont requis');
             return false;
         }
@@ -126,4 +125,36 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeComponents();
     const handler = new OrderHandler();
     console.log('Handler initialisé');
+});
+
+document.getElementById('validate-order').addEventListener('click', function() {
+    const discord = document.getElementById('discord').value;
+    const email = document.getElementById('email').value;
+    
+    // Vérifier si les champs obligatoires sont remplis
+    if (!discord || !email) {
+        alert('Veuillez remplir tous les champs obligatoires');
+        return;
+    }
+
+    // Vérifier si au moins un service est sélectionné
+    const bannerQty = parseInt(document.getElementById('banner-qty').value) || 0;
+    const logoQty = parseInt(document.getElementById('logo-qty').value) || 0;
+    const packQty = parseInt(document.getElementById('pack-qty').value) || 0;
+
+    if (bannerQty === 0 && logoQty === 0 && packQty === 0) {
+        alert('Veuillez sélectionner au moins un service');
+        return;
+    }
+
+    // Sauvegarder les données dans localStorage
+    localStorage.setItem('orderDiscord', discord);
+    localStorage.setItem('orderEmail', email);
+    localStorage.setItem('bannerQty', bannerQty);
+    localStorage.setItem('logoQty', logoQty);
+    localStorage.setItem('packQty', packQty);
+    localStorage.setItem('orderAmount', calculateTotal());
+
+    // Rediriger vers la page de paiement
+    window.location.href = 'paiement.html';
 });

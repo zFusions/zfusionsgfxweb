@@ -384,7 +384,8 @@ h1, h2, h3 {
     text-transform: uppercase;
     text-shadow: 0 0 10px var(--primary-color),
                  0 0 20px var(--primary-color),
-                 2px 2px 3px rgba(0, 10, 0, 0.8);  /* Ajout d'une ombre portée noire légère */
+                 0 0 30px var(--primary-color),
+                 2px 2px 8px rgba(0, 0, 0, 0.8); /* Ombre plus prononcée */
     background: none;
     -webkit-text-fill-color: var(--primary-color);
 }
@@ -415,13 +416,19 @@ h1, h2, h3 {
 /* Banner Preview */
 .banner-preview {
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
     overflow: hidden;
+}
+
+.banner-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%; /* Ajusté pour baisser légèrement l'image */
+    transform: translateY(60px); /* Décalage vers le bas pour compenser la barre de navigation */
 }
 
 .banner-preview {
